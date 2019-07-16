@@ -66,8 +66,8 @@ class RefinementDocument:
         ]
         tmp_sentences = copy.copy(sentences)
         self.tree = [
-            RefinementDocument.build_dependencies_tree(sentence2)
-            for sentence2 in tmp_sentences
+            RefinementDocument.build_dependencies_tree(sentence)
+            for sentence in tmp_sentences
         ]
 
     @classmethod
