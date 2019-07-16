@@ -54,16 +54,6 @@ def gen_info(level: int, message: str):
     return "[{}]: {}".format(LEVEL[level], message)
 
 
-def get_doc(Pipeline: stanfordnlp.Pipeline, text: str):
-    doc = Pipeline(text)
-    return doc
-
-
-def refinement_doc(doc: stanfordnlp.pipeline.doc.Document):
-    r_doc = RefinementDocument(doc)
-    return r_doc
-
-
 class RefinementDocument:
     def __init__(self, doc: stanfordnlp.pipeline.doc.Document):
         "docstring"
@@ -142,3 +132,15 @@ class RefinementDocument:
             rec_roots.append(rec_append_children(root, sentence))
 
         return roots
+
+
+def get_doc(Pipeline: stanfordnlp.Pipeline,
+            text: str) -> stanfordnlp.pipeline.doc.Document:
+    doc = Pipeline(text)
+    return doc
+
+
+def refinement_doc(doc: stanfordnlp.pipeline.doc.Document
+                   ) -> RefinementDocument:
+    r_doc = RefinementDocument(doc)
+    return r_doc
