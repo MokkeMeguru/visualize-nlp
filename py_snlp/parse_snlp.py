@@ -37,6 +37,7 @@
 #            ...]
 # ---------------------------------
 import stanfordnlp
+import copy
 
 LEVEL = ["DEBUG", "INFO", "WARN", "ERROR"]
 SAMPLE_TEXT = "山田さんは、明日の夕食はカレーにしようと言った。その提案に私は賛成した。"
@@ -63,9 +64,10 @@ class RefinementDocument:
             RefinementDocument._refinement_sentence_by_words(sentence)
             for sentence in self.doc.sentences
         ]
+        tmp_sentences = copy.copy(sentences)
         self.tree = [
             RefinementDocument.build_dependencies_tree(sentence2)
-            for sentence2 in self.sentences
+            for sentence2 in tmp_sentences
         ]
 
     @classmethod
