@@ -65,7 +65,7 @@ class RefinementDocument:
         ]
         self.tree = [
             RefinementDocument.build_dependencies_tree(sentence2)
-            for sentence2 in self.doc.sentences
+            for sentence2 in self.sentences
         ]
 
     @classmethod
