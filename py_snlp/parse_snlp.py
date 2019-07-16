@@ -59,13 +59,13 @@ class RefinementDocument:
         "docstring"
         self.doc = doc
         self.raw_text: str = doc.text
-        self.sentences: list = [
+        self.sentences = [
             RefinementDocument._refinement_sentence_by_words(sentence)
             for sentence in self.doc.sentences
         ]
         self.tree = [
             RefinementDocument.build_dependencies_tree(sentence2)
-            for sentence2 in self.sentences
+            for sentence2 in self.doc.sentences
         ]
 
     @classmethod
