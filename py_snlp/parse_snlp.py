@@ -64,7 +64,7 @@ class RefinementDocument:
             RefinementDocument._refinement_sentence_by_words(sentence)
             for sentence in self.doc.sentences
         ]
-        tmp_sentences = copy.deepcopy(sentences)
+        tmp_sentences = copy.deepcopy(self.sentences)
         self.tree = [
             RefinementDocument.build_dependencies_tree(sentence)
             for sentence in tmp_sentences

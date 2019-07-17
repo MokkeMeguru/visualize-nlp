@@ -1,0 +1,23 @@
+* How to use
+  Terminal A
+  #+begin_src shell
+    cd py-snlp
+    python -m venv venv
+    source venv/bin/activate
+    pip install stanfordnlp flask flask_restful
+    cd ..
+    python -m py_snlp.init
+  python -m py_snlp.server
+  #+end_src
+
+  Terminal B
+  #+begin_src shell
+    curl -X POST -H "Content-Type: application/json" -d '{"text" : "山田さんは、明日の夕食はカレーにしようと言った。その提案に私は賛成した。", "app" : "parse-snlp"}' 127.0.0.1:8810/parse-snlp/dependencies > example.json
+  #+end_src
+  
+  If you use emacs, you can open example.json in your emacs and
+  1. C-x h (mark-whole-buffer)
+  2. C-u M-| "jq ."
+     
+  You can get pretty formatted json.
+  

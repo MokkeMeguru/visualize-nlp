@@ -14,6 +14,7 @@ parser = reqparse.RequestParser()
 parser.add_argument('app', type=str)
 parser.add_argument('text', type=str)
 
+
 class ParseSnlp(Resource):
     def get(self):
         pass

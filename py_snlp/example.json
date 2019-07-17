@@ -3,7 +3,6 @@
   "result_sentence": [
     [
       {
-        "children": [],
         "dependency_relation": "compound",
         "governor": 2,
         "index": 1,
@@ -12,35 +11,6 @@
         "upos": "PROPN"
       },
       {
-        "children": [
-          {
-            "children": [],
-            "dependency_relation": "compound",
-            "governor": 2,
-            "index": 1,
-            "lemma": "山田",
-            "raw_word": "山田",
-            "upos": "PROPN"
-          },
-          {
-            "children": [],
-            "dependency_relation": "case",
-            "governor": 2,
-            "index": 3,
-            "lemma": "は",
-            "raw_word": "は",
-            "upos": "ADP"
-          },
-          {
-            "children": [],
-            "dependency_relation": "punct",
-            "governor": 2,
-            "index": 4,
-            "lemma": "、",
-            "raw_word": "、",
-            "upos": "PUNCT"
-          }
-        ],
         "dependency_relation": "nsubj",
         "governor": 14,
         "index": 2,
@@ -49,7 +19,6 @@
         "upos": "NOUN"
       },
       {
-        "children": [],
         "dependency_relation": "case",
         "governor": 2,
         "index": 3,
@@ -58,7 +27,6 @@
         "upos": "ADP"
       },
       {
-        "children": [],
         "dependency_relation": "punct",
         "governor": 2,
         "index": 4,
@@ -67,17 +35,6 @@
         "upos": "PUNCT"
       },
       {
-        "children": [
-          {
-            "children": [],
-            "dependency_relation": "case",
-            "governor": 5,
-            "index": 6,
-            "lemma": "の",
-            "raw_word": "の",
-            "upos": "ADP"
-          }
-        ],
         "dependency_relation": "nmod",
         "governor": 7,
         "index": 5,
@@ -86,7 +43,6 @@
         "upos": "NOUN"
       },
       {
-        "children": [],
         "dependency_relation": "case",
         "governor": 5,
         "index": 6,
@@ -95,36 +51,6 @@
         "upos": "ADP"
       },
       {
-        "children": [
-          {
-            "children": [
-              {
-                "children": [],
-                "dependency_relation": "case",
-                "governor": 5,
-                "index": 6,
-                "lemma": "の",
-                "raw_word": "の",
-                "upos": "ADP"
-              }
-            ],
-            "dependency_relation": "nmod",
-            "governor": 7,
-            "index": 5,
-            "lemma": "明日",
-            "raw_word": "明日",
-            "upos": "NOUN"
-          },
-          {
-            "children": [],
-            "dependency_relation": "case",
-            "governor": 7,
-            "index": 8,
-            "lemma": "は",
-            "raw_word": "は",
-            "upos": "ADP"
-          }
-        ],
         "dependency_relation": "nsubj",
         "governor": 11,
         "index": 7,
@@ -133,7 +59,6 @@
         "upos": "NOUN"
       },
       {
-        "children": [],
         "dependency_relation": "case",
         "governor": 7,
         "index": 8,
@@ -142,17 +67,6 @@
         "upos": "ADP"
       },
       {
-        "children": [
-          {
-            "children": [],
-            "dependency_relation": "case",
-            "governor": 9,
-            "index": 10,
-            "lemma": "に",
-            "raw_word": "に",
-            "upos": "ADP"
-          }
-        ],
         "dependency_relation": "iobj",
         "governor": 11,
         "index": 9,
@@ -161,7 +75,6 @@
         "upos": "NOUN"
       },
       {
-        "children": [],
         "dependency_relation": "case",
         "governor": 9,
         "index": 10,
@@ -170,83 +83,6 @@
         "upos": "ADP"
       },
       {
-        "children": [
-          {
-            "children": [
-              {
-                "children": [
-                  {
-                    "children": [],
-                    "dependency_relation": "case",
-                    "governor": 5,
-                    "index": 6,
-                    "lemma": "の",
-                    "raw_word": "の",
-                    "upos": "ADP"
-                  }
-                ],
-                "dependency_relation": "nmod",
-                "governor": 7,
-                "index": 5,
-                "lemma": "明日",
-                "raw_word": "明日",
-                "upos": "NOUN"
-              },
-              {
-                "children": [],
-                "dependency_relation": "case",
-                "governor": 7,
-                "index": 8,
-                "lemma": "は",
-                "raw_word": "は",
-                "upos": "ADP"
-              }
-            ],
-            "dependency_relation": "nsubj",
-            "governor": 11,
-            "index": 7,
-            "lemma": "夕食",
-            "raw_word": "夕食",
-            "upos": "NOUN"
-          },
-          {
-            "children": [
-              {
-                "children": [],
-                "dependency_relation": "case",
-                "governor": 9,
-                "index": 10,
-                "lemma": "に",
-                "raw_word": "に",
-                "upos": "ADP"
-              }
-            ],
-            "dependency_relation": "iobj",
-            "governor": 11,
-            "index": 9,
-            "lemma": "カレー",
-            "raw_word": "カレー",
-            "upos": "NOUN"
-          },
-          {
-            "children": [],
-            "dependency_relation": "aux",
-            "governor": 11,
-            "index": 12,
-            "lemma": "ようだ",
-            "raw_word": "よう",
-            "upos": "AUX"
-          },
-          {
-            "children": [],
-            "dependency_relation": "case",
-            "governor": 11,
-            "index": 13,
-            "lemma": "と",
-            "raw_word": "と",
-            "upos": "ADP"
-          }
-        ],
         "dependency_relation": "ccomp",
         "governor": 14,
         "index": 11,
@@ -255,7 +91,6 @@
         "upos": "VERB"
       },
       {
-        "children": [],
         "dependency_relation": "aux",
         "governor": 11,
         "index": 12,
@@ -264,7 +99,6 @@
         "upos": "AUX"
       },
       {
-        "children": [],
         "dependency_relation": "case",
         "governor": 11,
         "index": 13,
@@ -273,7 +107,14 @@
         "upos": "ADP"
       },
       {
-        "children": [],
+        "dependency_relation": "root",
+        "governor": 0,
+        "index": 14,
+        "lemma": "言う",
+        "raw_word": "言っ",
+        "upos": "VERB"
+      },
+      {
         "dependency_relation": "aux",
         "governor": 14,
         "index": 15,
@@ -282,7 +123,6 @@
         "upos": "AUX"
       },
       {
-        "children": [],
         "dependency_relation": "punct",
         "governor": 14,
         "index": 16,
@@ -293,7 +133,6 @@
     ],
     [
       {
-        "children": [],
         "dependency_relation": "det",
         "governor": 2,
         "index": 1,
@@ -302,26 +141,6 @@
         "upos": "DET"
       },
       {
-        "children": [
-          {
-            "children": [],
-            "dependency_relation": "det",
-            "governor": 2,
-            "index": 1,
-            "lemma": "その",
-            "raw_word": "その",
-            "upos": "DET"
-          },
-          {
-            "children": [],
-            "dependency_relation": "case",
-            "governor": 2,
-            "index": 3,
-            "lemma": "に",
-            "raw_word": "に",
-            "upos": "ADP"
-          }
-        ],
         "dependency_relation": "iobj",
         "governor": 6,
         "index": 2,
@@ -330,7 +149,6 @@
         "upos": "NOUN"
       },
       {
-        "children": [],
         "dependency_relation": "case",
         "governor": 2,
         "index": 3,
@@ -339,17 +157,6 @@
         "upos": "ADP"
       },
       {
-        "children": [
-          {
-            "children": [],
-            "dependency_relation": "case",
-            "governor": 4,
-            "index": 5,
-            "lemma": "は",
-            "raw_word": "は",
-            "upos": "ADP"
-          }
-        ],
         "dependency_relation": "nsubj",
         "governor": 6,
         "index": 4,
@@ -358,7 +165,6 @@
         "upos": "PRON"
       },
       {
-        "children": [],
         "dependency_relation": "case",
         "governor": 4,
         "index": 5,
@@ -367,7 +173,14 @@
         "upos": "ADP"
       },
       {
-        "children": [],
+        "dependency_relation": "root",
+        "governor": 0,
+        "index": 6,
+        "lemma": "賛成",
+        "raw_word": "賛成",
+        "upos": "VERB"
+      },
+      {
         "dependency_relation": "aux",
         "governor": 6,
         "index": 7,
@@ -376,7 +189,6 @@
         "upos": "AUX"
       },
       {
-        "children": [],
         "dependency_relation": "aux",
         "governor": 6,
         "index": 8,
@@ -385,7 +197,6 @@
         "upos": "AUX"
       },
       {
-        "children": [],
         "dependency_relation": "punct",
         "governor": 6,
         "index": 9,
