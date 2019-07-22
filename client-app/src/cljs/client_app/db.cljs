@@ -1,7 +1,7 @@
 (ns client-app.db)
 
 (def default-db
-  {:name "visualize-nlp"
+  {:name "re-frame x D3.js"
    :example-dp [
                 {:id  1
                  :word "hoge"

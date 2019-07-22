@@ -24,5 +24,3 @@
   (dev-setup)
   (mount-root))
 
-(vs/draw-slopegraph (vs/append-svg) vs/example-data)
-(vs/remove-svg)
