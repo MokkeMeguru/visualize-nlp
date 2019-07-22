@@ -1,7 +1,6 @@
 (ns client-app.db)
 
 (def default-db
-  {:name "re-frame x D3.js"})
+  {:name "re-frame x D3.js"
+   :sentences []})
 
-(def sentences-db
-  {:sentences []})
