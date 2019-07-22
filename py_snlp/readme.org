@@ -14,6 +14,10 @@
   #+begin_src shell
     curl -X POST -H "Content-Type: application/json" -d '{"text" : "山田さんは、明日の夕食はカレーにしようと言った。その提案に私は賛成した。", "app" : "parse-snlp"}' 127.0.0.1:8810/parse-snlp/dependencies > example.json
   #+end_src
+  or 
+  #+begin_src shell
+    curl -X POST -H "Content-Type: application/json" -d '{"text" : "あなたの進捗はどうですか？", "app" : "parse-snlp"}' 127.0.0.1:8810/parse-snlp/dependencies > example2.json
+  #+end_src
   
   If you use emacs, you can open example.json in your emacs and
   1. C-x h (mark-whole-buffer)
