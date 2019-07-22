@@ -7,6 +7,6 @@
    [client-app.config :as config]
    [cljsjs.d3 :as d3]))
 
-(defn cosume-tree-data [])
+(defn cosume-tree-data [subs])
 
 
