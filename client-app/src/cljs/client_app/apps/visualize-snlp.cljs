@@ -170,7 +170,8 @@
                            (.attr "stroke" "black")
                            (.text #(-> % .-target .-data .-dependency_relation))
                            (.style "fill-opacity" 1))
-                     link-update (.merge link-enter link)
+                    link-update (.merge link-enter link)
+                    link-text-update (.merge link-text-enter link-text)
                      _ (-> link-update
                            .transition
                            (.duration (:duration properties))
