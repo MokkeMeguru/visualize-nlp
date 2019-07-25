@@ -16,3 +16,8 @@
  ::tree-count
  (fn [db]
    (:tree-count db)))
+
+(re-frame/reg-sub
+ ::remove-relations
+ (fn [db]
+   (:remove-relations db)))

@@ -82,6 +82,22 @@
    (assoc db :tree-count 0)))
 
 (re-frame/reg-event-db
+ ::init-remove-relations
+ (fn [db _]
+   (assoc db :remove-relations #{})))
+
+(re-frame/reg-event-db
+ ::add-remove-relation
+ (fn [db [k v]]
+   (update db  :remove-relations conj v)))
+
+(re-frame/reg-event-db
+ ::sub-remove-relation
+ (fn [db [k v]]
+   (update db  :remove-relations disj v)))
+
+
+(re-frame/reg-event-db
  ::inc-tree-count
  (fn [db _]
    (assoc db :tree-count (inc @(re-frame/subscribe [::subs/tree-count])))))

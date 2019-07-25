@@ -18,22 +18,26 @@
 
 (defn gen-properties
   ([]
-   {:width 800
-    :height 600
+   {:width 600
+    :height 500
     :root "#treegraph"
-    :margin {:top 100 :left 100}
-    :duration 500})
-  ([properties]
-   (merge
-    (gen-properties)
-    properties)))
+    :margin {:top 100 :left 50}
+    :duration 500} ))
 
-(defn preprocess-root [root]
-  (cond
-    (nil? (.-children root)) ()
-    (= 0  (->  root .-children .-length)) (set! (.-children root) nil)
-    :else (.forEach (.-children root) #(preprocess-root % nil nil) ))
-  root)
+(defn preprocess-root
+  ([root]
+   (cond
+     (nil? (.-children root)) ()
+     (= 0  (->  root .-children .-length)) (set! (.-children root) nil)
+     :else (.forEach (.-children root) (fn [child index]
+                                         (let [children-length (-> root .-children .-length)]
+                                          (if (contains? @(re-frame/subscribe [::subs/remove-relations])  (.-dependency_relation child))
+                                            (do
+                                              (set! (-> root .-children .-length) (if (> children-length 0) (dec children-length) 0))
+                                               (.splice (.-children root) index 1)
+                                               )
+                                             (preprocess-root child))))))
+   root))
 
 (defn gen-root [data idx properties]
   ;; TODO fix bug : first -> nth or nth -> first
@@ -55,18 +59,28 @@
       .remove))
 
 (defn gen-svg [properties]
+  (remove-svg (gen-properties))
   (let [margin-top (get-in properties [:margin  :top])
-        margin-left (get-in properties [:margin :left])]
-    (remove-svg (gen-properties))
-   (-> js/d3
-       (.select (:root properties))
-       (.append "svg")
-       (.attr "width" (+ (:width properties) margin-left))
-       (.attr "height" (+ (:height properties) margin-top))
+        margin-left (get-in properties [:margin :left])
+        svg (-> js/d3
+                (.select (:root properties))
+                (.append "svg")
+                (.attr "width" (+ (:width properties) margin-left))
+                (.attr "height" (+ (:height properties) margin-top))
+                (.style "border" "solid 2px")
+                (.style "border-radius" "1em")
+                (.append "g"))
+        _ (-> svg
+              (.call (-> js/d3
+                         .zoom
+                         (.scaleExtent (clj->js [0.8 1.2]))
+                         (.on "zoom" #(-> svg (.attr "transform" (-> js/d3 .-event .-transform)))))))]
+   (-> svg
        (.append "g")
        (.attr "transform" (gstr/format "translate(%d, %d)" margin-left margin-top))
        (.attr "width"(:width properties))
-       (.attr "height" (:height properties)))))
+       (.attr "height" (:height properties))
+       )))
 
 (defn toggle [selected-node]
   (if-not (nil? (-> selected-node .-children))
@@ -112,7 +126,7 @@
                            (.append "text")
                            (.attr "x" #(if (or (.-children_hidden %) (.-children %)) -13 13))
                            (.attr "dy" 3)
-                           (.attr "font-size" "150%")
+                           (.attr "font-size" "100%")
                            (.attr "text-anchor" #(if (or (.-children_hidden %) (.-children %)) "end" "start"))
                            (.text #(-> % .-data .-raw_word))
                            (.style "fill-opacity" 1))
@@ -144,25 +158,30 @@
                               (.selectAll ".link")
                               (.data (.links root) #(-> % .-target .-id)))
                      link-text (-> svg
-                              (.selectAll ".link_text")
-                              (.data (.links root) #(-> % .-target .-id)))
+                                   (.selectAll ".link-text")
+                                   (.data (.links root) #(-> % .-target .-id)))
                      link-text-enter (-> link-text
                                          .enter
                                          (.insert "g" "g")
-                                         (.attr "class" "link_text"))
-                     link-enter (->  link
-                                    (.append "path")
-                                    (.attr "d" (-> js/d3
-                                                   .linkVertical
-                                                   (.x #(.-x0 source))
-                                                   (.y #(.-y0 source)))))
+                                         (.attr "class" "link-text")
+                                         (.attr "transform" #(gstr/format "translate(%d,%d)"
+                                                                          (-> % .-source .-x)
+                                                                          (-> % .-source .-y))))
                      _ (-> link-text-enter
+                           (.append "rect")
+                           (.attr "rx" 6)
+                           (.attr "ry" 6)
+                           (.attr "x" -25)
+                           (.attr "y" -10)
+                           (.attr "width" 50)
+                           (.attr "height" 20)
+                           (.style "opacity" "0.9")
+                           (.style "fill" "orange")
+                           (.style "stroke" "orange")
+                           (.style "border-radius" "20px"))
+                     link-text-text (-> link-text-enter
                            (.append "text")
                            (.attr  "font-size" "150%")
-                           (.attr "transform" #(gstr/format "translate(%d,%d)"
-                                                            (/ (+ (-> % .-source .-x) (-> % .-target .-x)) 2)
-                                                            (/ (+ (-> % .-source .-y) (-> % .-target .-y)) 2)
-                                                            ))
                            (.attr "dy" 3)
                            (.attr "font-size" "100%")
                            (.attr "text-anchor" "middle")
@@ -170,8 +189,45 @@
                            (.attr "stroke" "black")
                            (.text #(-> % .-target .-data .-dependency_relation))
                            (.style "fill-opacity" 1))
-                    link-update (.merge link-enter link)
-                    link-text-update (.merge link-text-enter link-text)
+                     link-text-update (-> link-text-enter
+                                          (.merge link-text)
+                                          .transition
+                                          (.duration (:duration properties))
+                                          (.attr "transform" #(gstr/format "translate(%d, %d)"
+                                                                           (/ (+ (-> % .-source .-x) (-> % .-target .-x)) 2)
+                                                                           (/ (+ (-> % .-source .-y) (-> % .-target .-y)) 2))))
+                     _ (-> link-text
+                           .exit
+                           .transition
+                           (.duration (:duration properties))
+                           (.attr "transform" #(gstr/format "translate(%d,%d)"
+                                                            (.-x source)
+                                                            (.-y source)
+                                                            )) 
+                           .remove)
+                     link-enter (->  link
+                                     .enter
+                                     (.insert "path" "g")
+                                     (.attr "class" "link")
+                                     (.attr "d" (-> js/d3
+                                                    .linkVertical
+                                                    (.x #(.-x0 source))
+                                                    (.y #(.-y0 source))))
+                                     (.style "stroke"
+                                             #(condp = (-> % .-target .-data .-dependency_relation)
+                                                "nsubj" "red"
+                                                "cop" "blue"
+                                                "mark" "#2a7373"
+                                                "gray")) )
+
+                     link-update (-> link-enter
+                                     (.merge  link)
+                                     .transition
+                                     (.duration (:duration properties))
+                                     (.attr "d" (-> js/d3
+                                                    .linkVertical
+                                                    (.x #(.-x %))
+                                                    (.y #(.-y %)))))
                      _ (-> link-update
                            .transition
                            (.duration (:duration properties))
@@ -179,7 +235,6 @@
                                           .linkVertical
                                           (.x #(.-x %))
                                           (.y #(.-y %)))))
-
                      _ (-> link
                            .exit
                            .transition
@@ -189,15 +244,6 @@
                                           (.x #(.-x source))
                                           (.y #(.-y source))))
                            .remove)
-                     _ (-> link-text
-                           .exit
-                           .transition
-                           (.duration (:duration properties))
-                           (.attr "transform" #(gstr/format "translate(%d,%d)"
-                                                            (-> % .-source .-x)
-                                                            (-> % .-source .-y)))
-                                                            (.attr "font-size" "0")
-                                                            .remove)
                      ]
                  (-> node
                      (.each #(do
@@ -207,6 +253,9 @@
        (update-tree root)))))
 
 (re-frame/dispatch-sync [::events/initialize-sentences])
+(re-frame/dispatch-sync [::events/add-remove-relation "case"])
+(re-frame/dispatch-sync [::events/sub-remove-relation "nmod"])
+(re-frame/dispatch-sync [::events/sub-remove-relation "case"])
 (init-sentence-tree 0)
 
 ;; (-> example-tree-data first first .-x0)
