@@ -178,10 +178,24 @@
                                           .linkVertical
                                           (.x #(.-x %))
                                           (.y #(.-y %)))))
-                     _ (-> link-update
-                           (.select "text")
-                           (.style "opacity" 1))
+
                      _ (-> link
+                           .exit
+                           .transition
+                           (.duration (:duration properties))
+                           (.attr "d" (-> js/d3
+                                          .linkVertical
+                                          (.x #(.-x source))
+                                          (.y #(.-y source))))
+                           .remove)
+                     _ (-> link-text-update
+                           .transition
+                           (.duration (:duration properties))
+                           (.attr "d" (-> js/d3
+                                          .linkVertical
+                                          (.x #(.-x %))
+                                          (.y #(.-y %)))))
+                     _ (-> link-text
                            .exit
                            .transition
                            (.duration (:duration properties))
