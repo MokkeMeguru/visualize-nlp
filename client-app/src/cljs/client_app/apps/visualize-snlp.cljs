@@ -147,7 +147,7 @@
                                          .enter
                                          (.insert "g" "g")
                                          (.attr "class" "link"))
-                     link-enter (->  link-root-enter
+                     link-enter (->  link
                                     (.append "path")
                                     (.attr "d" (-> js/d3
                                                    .linkVertical
