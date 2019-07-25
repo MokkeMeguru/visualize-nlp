@@ -189,13 +189,15 @@
                                           (.x #(.-x source))
                                           (.y #(.-y source))))
                            .remove)
-                     _ (-> link-text-update
+                     _ (-> link-text
+                           .exit
                            .transition
                            (.duration (:duration properties))
                            (.attr "transform" #(gstr/format "translate(%d,%d)"
                                                             (-> % .-source .-x)
                                                             (-> % .-source .-y)
                                                             )
+.remove
 )
                      _ (-> link-text
                            .exit
