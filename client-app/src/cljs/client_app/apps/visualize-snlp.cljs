@@ -195,10 +195,9 @@
                            (.duration (:duration properties))
                            (.attr "transform" #(gstr/format "translate(%d,%d)"
                                                             (-> % .-source .-x)
-                                                            (-> % .-source .-y)
-                                               ))
- (.attr "font-size" "0")
-.remove)
+                                                            (-> % .-source .-y)))
+                                                            (.attr "font-size" "0")
+                                                            .remove)
                      ]
                  (-> node
                      (.each #(do
