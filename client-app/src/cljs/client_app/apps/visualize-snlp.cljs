@@ -196,9 +196,8 @@
                            (.attr "transform" #(gstr/format "translate(%d,%d)"
                                                             (-> % .-source .-x)
                                                             (-> % .-source .-y)
-                                                            )
-.remove
-)
+                                               ))
+.remove)
                      _ (-> link-text
                            .exit
                            .transition
