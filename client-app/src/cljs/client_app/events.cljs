@@ -2,7 +2,7 @@
   (:require
    [re-frame.core :as re-frame]
    [client-app.db :as db]
-   ))
+   [client-app.subs :as subs]))
 
 (re-frame/reg-event-db
  ::initialize-db
@@ -11,14 +11,13 @@
 
 (re-frame/reg-event-db
  ::reset-sentences
- (fn [_ sentences]
-<<<<<<< HEAD
-   (assoc db/default-db :sentences sentences)))
+ (fn [db sentences]
+   (assoc db :sentences sentences)))
 
 (re-frame/reg-event-db
  ::initialize-sentences
- (fn [_ _]
-   (assoc db/default-db :sentences
+ (fn [db _]
+   (assoc db :sentences
           {"result_tree"
            [[{"children"
               [{"children"
@@ -77,6 +76,12 @@
               "raw_word" "どう",
               "upos" "ADV"}]]})))
 
-=======
-   (assoc :sentences sentences)))
->>>>>>> 2bdfd8b... updata environment
+(re-frame/reg-event-db
+ ::init-tree-count
+ (fn [db _]
+   (assoc db :tree-count 0)))
+
+(re-frame/reg-event-db
+ ::inc-tree-count
+ (fn [db _]
+   (assoc db :tree-count (inc @(re-frame/subscribe [::subs/tree-count])))))

@@ -2,5 +2,7 @@
 
 (def default-db
   {:name "re-frame x D3.js"
-   :sentences []})
+   :sentences []
+   :tree-count 0
+})
 

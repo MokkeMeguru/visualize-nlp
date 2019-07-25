@@ -5,9 +5,12 @@
   [:body {:color "black"}]
   [:.link {:fill "none"
            :stroke "#ccc"
-           :stroke-with "10px"}]
-  [:.node {:fill "steelblue"
-           :stroke "none"}]
+           :stroke-opacity 0.9
+           :stroke-width "3px"}]
+  [:.node [:circle
+           {:fill "#fff"
+            :stroke "steelblue"
+            :stroke-width "1.5px"}]]
   [:.tooltip
    {:position "absolute"
     :text-align "center"

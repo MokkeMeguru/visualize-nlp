@@ -11,3 +11,8 @@
  ::sentences
  (fn [db]
    (:sentences db)))
+
+(re-frame/reg-sub
+ ::tree-count
+ (fn [db]
+   (:tree-count db)))

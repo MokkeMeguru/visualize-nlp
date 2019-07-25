@@ -30,12 +30,13 @@
   :profiles
   {:dev
    {:dependencies [[binaryage/devtools "0.9.10"]
+                   [day8.re-frame/re-frame-10x "0.4.0"]
+                   [day8.re-frame/tracing "0.5.1"]
                    [figwheel-sidecar "0.5.18"]
-                   [cider/piggieback "0.4.1"]
-                   [re-frisk "0.5.4.1"]]
+                   [cider/piggieback "0.4.1"]]
 
     :plugins      [[lein-figwheel "0.5.18"]]}
-   :prod { }
+   :prod { :dependencies [[day8.re-frame/tracing-stubs "0.5.1"]] }
    }
 
   :cljsbuild
@@ -49,7 +50,9 @@
                     :asset-path           "js/compiled/out"
                     :source-map-timestamp true
                     :preloads             [devtools.preload
-                                           re-frisk.preload]
+                                           day8.re-frame-10x.preload]
+                    :closure-defines      {"re_frame.trace.trace_enabled_QMARK_" true
+                                           "day8.re_frame.tracing.trace_enabled_QMARK_" true}
                     :external-config      {:devtools/config {:features-to-install :all}}
                     }}
 
