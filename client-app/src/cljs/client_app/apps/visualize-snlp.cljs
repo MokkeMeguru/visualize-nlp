@@ -197,13 +197,8 @@
                                                             (-> % .-source .-x)
                                                             (-> % .-source .-y)
                                                ))
+ (.attr "font-size" "0")
 .remove)
-                     _ (-> link-text
-                           .exit
-                           .transition
-                           (.duration (:duration properties))
-                          (.attr "font-size" "0")
-                           .remove)
                      ]
                  (-> node
                      (.each #(do
