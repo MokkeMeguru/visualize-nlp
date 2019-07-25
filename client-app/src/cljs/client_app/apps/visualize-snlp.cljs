@@ -200,10 +200,7 @@
                            .exit
                            .transition
                            (.duration (:duration properties))
-                           (.attr "d" (-> js/d3
-                                          .linkVertical
-                                          (.x #(.-x source))
-                                          (.y #(.-y source))))
+                          (.attr "font-size" "100%")
                            .remove)
                      ]
                  (-> node
