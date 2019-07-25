@@ -192,10 +192,11 @@
                      _ (-> link-text-update
                            .transition
                            (.duration (:duration properties))
-                           (.attr "d" (-> js/d3
-                                          .linkVertical
-                                          (.x #(.-x %))
-                                          (.y #(.-y %)))))
+                           (.attr "transform" #(gstr/format "translate(%d,%d)"
+                                                            (-> % .-source .-x)
+                                                            (-> % .-source .-y)
+                                                            )
+)
                      _ (-> link-text
                            .exit
                            .transition
