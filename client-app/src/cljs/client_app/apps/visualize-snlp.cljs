@@ -143,17 +143,20 @@
                      link (-> svg
                               (.selectAll ".link")
                               (.data (.links root) #(-> % .-target .-id)))
-                     link-root-enter (-> link
+                     link-text (-> svg
+                              (.selectAll ".link_text")
+                              (.data (.links root) #(-> % .-target .-id)))
+                     link-text-enter (-> link-text
                                          .enter
                                          (.insert "g" "g")
-                                         (.attr "class" "link"))
+                                         (.attr "class" "link_text"))
                      link-enter (->  link
                                     (.append "path")
                                     (.attr "d" (-> js/d3
                                                    .linkVertical
                                                    (.x #(.-x0 source))
                                                    (.y #(.-y0 source)))))
-                     _ (-> link-root-enter
+                     _ (-> link-text-enter
                            (.append "text")
                            (.attr  "font-size" "150%")
                            (.attr "transform" #(gstr/format "translate(%d,%d)"
