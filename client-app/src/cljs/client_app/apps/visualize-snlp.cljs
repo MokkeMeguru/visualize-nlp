@@ -200,7 +200,7 @@
                            .exit
                            .transition
                            (.duration (:duration properties))
-                          (.attr "font-size" "100%")
+                          (.attr "font-size" "0")
                            .remove)
                      ]
                  (-> node
