@@ -104,7 +104,8 @@
          properties (gen-properties)
          root (gen-root tree-data idx properties)
          tree (gen-tree properties)
-         svg (gen-svg properties)]
+         svg (gen-svg properties)
+         tooltip (-> svg (.append "div") (.atttr "class" "tooltip"))]
      (re-frame/dispatch-sync [::events/init-tree-count])
      (letfn [(update-tree [source]
                (tree root)
@@ -117,7 +118,9 @@
                                     (.append "g")
                                     (.attr "class" "node")
                                     (.attr "transform" #(gstr/format "translate(%d,%d)" (.-x0 source) (.-y0 source) ))
-                                    (.on "click" #(do (toggle %) (update-tree %))))
+                                    (.on "click" #(do (toggle %) (update-tree %)))
+                                    (.on "mouseover" #(-> tooltip (.style "visibility" "visible") (.html (gstr/format "lemma : %s <br>UPOS : %s <br>" (.-lemma %) (.-upos %)))))
+                                    (.on "mouseout" #(-> tooltip (.style "visibility" "hidden"))))
                      _  (-> node-enter
                             (.append "circle")
                             (.attr "r" 5)
