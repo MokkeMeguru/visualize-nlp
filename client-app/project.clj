@@ -5,6 +5,8 @@
                  [re-frame "0.10.8"]
                  [garden "1.3.9"]
                  [ns-tracker "0.4.0"]
+                 [day8.re-frame/http-fx "0.1.6"]
+                 [cljs-ajax "0.8.0"]
                  [cljsjs/d3 "5.9.2-0"] ]
 
   :plugins [[lein-cljsbuild "1.1.7"]

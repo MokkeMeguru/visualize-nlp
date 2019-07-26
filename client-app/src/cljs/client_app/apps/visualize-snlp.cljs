@@ -105,7 +105,7 @@
          root (gen-root tree-data idx properties)
          tree (gen-tree properties)
          svg (gen-svg properties)
-         tooltip (-> svg (.append "div") (.atttr "class" "tooltip"))]
+         tooltip (-> js/d3 (.select (:root properties)) (.append "div") (.attr "class" "tooltip"))]
      (re-frame/dispatch-sync [::events/init-tree-count])
      (letfn [(update-tree [source]
                (tree root)
@@ -118,13 +118,12 @@
                                     (.append "g")
                                     (.attr "class" "node")
                                     (.attr "transform" #(gstr/format "translate(%d,%d)" (.-x0 source) (.-y0 source) ))
-                                    (.on "click" #(do (toggle %) (update-tree %)))
-                                    (.on "mouseover" #(-> tooltip (.style "visibility" "visible") (.html (gstr/format "lemma : %s <br>UPOS : %s <br>" (.-lemma %) (.-upos %)))))
-                                    (.on "mouseout" #(-> tooltip (.style "visibility" "hidden"))))
+                                    (.on "click" #(do (toggle %) (update-tree %))))
                      _  (-> node-enter
                             (.append "circle")
                             (.attr "r" 5)
-                            (.style "fill" #(if (nil? (.-children_hidden %)) "#fff" "lightsteelblue")))
+                            (.style "fill" #(if (nil? (.-children_hidden %)) "#fff" "lightsteelblue"))
+                            )
                      _ (-> node-enter
                            (.append "text")
                            (.attr "x" #(if (or (.-children_hidden %) (.-children %)) -13 13))
@@ -132,7 +131,13 @@
                            (.attr "font-size" "100%")
                            (.attr "text-anchor" #(if (or (.-children_hidden %) (.-children %)) "end" "start"))
                            (.text #(-> % .-data .-raw_word))
-                           (.style "fill-opacity" 1))
+                           (.style "fill-opacity" 1)
+                           (.on "mouseover" #(-> tooltip (.style "visibility" "visible") (.html (gstr/format "lemma : %s <br>UPOS : %s <br>" (-> % .-data .-lemma) (-> % .-data .-upos)))))
+                           (.on "mousemove"
+                                #(-> tooltip
+                                     (.style "top" (gstr/format "%dpx" (- (-> js/d3 .-event .-pageY) 40)))
+                                     (.style "left" (gstr/format "%dpx" (- (-> js/d3 .-event .-pageX) 0)))))
+                           (.on "mouseout" #(-> tooltip (.style "visibility" "hidden"))))
                      node-update (.merge   node-enter node)
                      _ (-> node-update
                            .transition
@@ -246,19 +251,19 @@
                                           .linkVertical
                                           (.x #(.-x source))
                                           (.y #(.-y source))))
-                           .remove)
-                     ]
+                           .remove)]
                  (-> node
                      (.each #(do
                                (set! (.-x0 %) (.-x %))
                                (set! (.-y0 %) (.-y %)))))
+                 
                  ))]
        (update-tree root)))))
 
-(re-frame/dispatch-sync [::events/initialize-sentences])
-(re-frame/dispatch-sync [::events/add-remove-relation "case"])
-(re-frame/dispatch-sync [::events/sub-remove-relation "nmod"])
-(re-frame/dispatch-sync [::events/sub-remove-relation "case"])
+;; (re-frame/dispatch-sync [::events/initialize-sentences])
+;; (re-frame/dispatch-sync [::events/add-remove-relation "case"])
+;; (re-frame/dispatch-sync [::events/sub-remove-relation "nmod"])
+;; (re-frame/dispatch-sync [::events/sub-remove-relation "case"])
 (init-sentence-tree 0)
 
 ;; (-> example-tree-data first first .-x0)

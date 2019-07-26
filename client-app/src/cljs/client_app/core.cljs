@@ -20,8 +20,8 @@
                   (.getElementById js/document "app")))
 
 (defn ^:export init []
-  (re-frame/dispatch-sync [::events/init-tree-count])
-  (re-frame/dispatch-sync [::events/initialize-sentences])
-  (re-frame/dispatch-sync [::events/initialize-db])
+  (re-frame/dispatch [::events/initialize-db])
+  (re-frame/dispatch [::events/init-tree-count])
+  (re-frame/dispatch [::events/initialize-sentences])
   (dev-setup)
   (mount-root))

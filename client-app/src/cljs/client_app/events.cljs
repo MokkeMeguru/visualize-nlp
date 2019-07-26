@@ -1,7 +1,9 @@
 (ns client-app.events
   (:require
    [re-frame.core :as re-frame]
+   [ajax.core :as ajax]
    [client-app.db :as db]
+   [day8.re-frame.http-fx] 
    [client-app.subs :as subs]))
 
 (re-frame/reg-event-db
@@ -101,3 +103,34 @@
  ::inc-tree-count
  (fn [db _]
    (assoc db :tree-count (inc @(re-frame/subscribe [::subs/tree-count])))))
+
+
+(re-frame/reg-event-db
+ ::success-analyze-text
+ (fn [db [_ res]]
+   (print res)
+   (.log js/console res)
+   db))
+
+(re-frame/reg-event-db
+ ::failure-analyze-text
+ (fn [db [_ res]]
+   (print res)
+   (.log js/console res)
+   db))
+
+(re-frame/reg-event-fx
+ ::send-text
+ (fn [db [_ params]]
+   {:http-xhrio
+    {:method :post
+     :uri "http://127.0.0.1:8810/parse-snlp/dependencies"
+     :params {:text params :app "parse-snlp"}
+     :format (ajax/json-request-format)
+     :response-format (ajax/json-response-format {:keywords? true})
+     :on-success [::success-analyze-text]
+     :on-failure [::failure-analyze-text]
+     }}
+   ))
+
+;; (re-frame/dispatch [::send-text "怖い話ではありません。"])
