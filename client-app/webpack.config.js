@@ -8,15 +8,16 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.ts$/,
+                test: /\.tsx?$/,
                 use: "ts-loader"
             }
         ]
     },
     resolve: {
-        extensions: [".ts", "js"]
+        extensions: [".ts", ".js", ".tsx", ".json"]
     },
     devServer : {
-        contentBase: `${__dirname}/dist`
+        contentBase: `${__dirname}/dist`,
+        port: 3449
     },
 };
