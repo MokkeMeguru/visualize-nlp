@@ -256,29 +256,12 @@
                      (.each #(do
                                (set! (.-x0 %) (.-x %))
                                (set! (.-y0 %) (.-y %)))))
-                 
                  ))]
        (update-tree root)))))
 
-;; (re-frame/dispatch-sync [::events/initialize-sentences])
-;; (re-frame/dispatch-sync [::events/add-remove-relation "case"])
-;; (re-frame/dispatch-sync [::events/sub-remove-relation "nmod"])
-;; (re-frame/dispatch-sync [::events/sub-remove-relation "case"])
-(init-sentence-tree 0)
-
-;; (-> example-tree-data first first .-x0)
-;; (.-x0 example-tree-data)
-;; (def update-tree (init-sentence-tree 0))
-
-;; (def tree-data (consume-tree-data))
-;; (def properties (gen-properties))
-;; (def root (gen-root tree-data 0 properties))
-;; (def tree (gen-tree properties))
-;; (def svg (gen-svg properties))
-;; (re-frame/dispatch-sync [::events/init-tree-count])
-
-
-;; (update-tree root)
+(do
+  (re-frame/dispatch-sync [::events/initialize-sentences])
+ (init-sentence-tree 0))
 
 
 ;; TODO: GENERATE TEST FILE

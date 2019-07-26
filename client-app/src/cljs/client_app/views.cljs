@@ -6,8 +6,8 @@
 
 (defn main-panel []
   (let [name (re-frame/subscribe [::subs/name])]
-    [:div
-     [:h1 "Hello from " @name]
+    [:div.container
+     [:nav.navbar.navbar-expand.flex-column.flex-md-row.bd-navbar [:h1.text-primary "Hello from " @name]]
      [:div.container {:style {:width "650px"}}
       [:div.row
        [:div.mx-auto {:style {:width "200px"}} "テキスト入力欄"]
