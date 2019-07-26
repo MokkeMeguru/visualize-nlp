@@ -2,10 +2,12 @@ import stanfordnlp
 from flask import Flask, request, jsonify
 from flask_restful import reqparse, Resource, Api
 import json
+from flask_cors import CORS
 
 from py_snlp import parse_snlp as psnlp
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 Pipeline = stanfordnlp.Pipeline(lang='ja')
@@ -21,6 +23,7 @@ class ParseSnlp(Resource):
 
     def post(self):
         data = parser.parse_args()
+        print("hogehoge", data)
         text = data['text']
         if data['app'] == 'parse-snlp' and len(text) >= 1:
             analyzed = psnlp.refinement_doc(psnlp.get_doc(Pipeline, text))

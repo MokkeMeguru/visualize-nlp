@@ -126,6 +126,7 @@
     {:method :post
      :uri "http://localhost:8810/parse-snlp/dependencies"
      :params {:text params :app "parse-snlp"}
+     :timeout 8000
      :format (ajax/json-request-format)
      :response-format (ajax/json-response-format {:keywords? true})
      :on-success [::success-analyze-text]
@@ -133,4 +134,6 @@
      }}
    ))
 
-(re-frame/dispatch [::send-text "怖い話ではありません。"])
+;; (re-frame/dispatch [::send-text "怖い話ではありません。"])
+
+

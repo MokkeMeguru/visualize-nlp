@@ -4,7 +4,7 @@
     cd py-snlp
     python -m venv venv
     source venv/bin/activate
-    pip install stanfordnlp flask flask_restful
+    pip install stanfordnlp flask flask_restful flask-cors
     cd ..
     python -m py_snlp.init
   python -m py_snlp.server
