@@ -1,6 +1,6 @@
 const path = require('path');
 module.exports = {
-    entry:  "./src/app.ts",
+    entry:  "./src/app.tsx",
     output: {
         path: `${__dirname}/dist`,
         filename: 'app.js'
@@ -17,6 +17,8 @@ module.exports = {
         extensions: [".ts", ".js", ".tsx", ".json"]
     },
     devServer : {
+        host: '0.0.0.0',
+        disableHostCheck: true,
         contentBase: `${__dirname}/dist`,
         port: 3449
     },
