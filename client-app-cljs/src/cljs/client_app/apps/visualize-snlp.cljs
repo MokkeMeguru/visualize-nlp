@@ -8,7 +8,9 @@
    [cljsjs.d3 :as d3]
    [client-app.subs :as subs]
    [goog.string :as gstr]
-   [cljs.spec.alpha :as spec]))
+   [cljs.spec.alpha :as spec]
+   [cljs.core.async.impl.timers :refer [timeout]])
+  (:require-macros [cljs.core.async :refer [go-loop]]))
 
 (defn consume-tree-data
   ([]
@@ -137,7 +139,9 @@
                                 #(-> tooltip
                                      (.style "top" (gstr/format "%dpx" (- (-> js/d3 .-event .-pageY) 40)))
                                      (.style "left" (gstr/format "%dpx" (- (-> js/d3 .-event .-pageX) 0)))))
-                           (.on "mouseout" #(-> tooltip (.style "visibility" "hidden"))))
+                           (.on "mouseout" #(go-loop [seconds 1]
+                                              (<! (timeout 500))
+                                              (-> tooltip (.style "visibility" "hidden")))))
                      node-update (.merge   node-enter node)
                      _ (-> node-update
                            .transition

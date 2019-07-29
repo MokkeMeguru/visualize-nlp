@@ -22,6 +22,7 @@
     :-webkit-box-shadow "0px 0px 20px rgba(0, 0, 0, 0.8)"
     :-moz-box-shadow "0px 0px 20px rgba(0, 0, 0, 0.8)"
     :box-shadow "0px 0px 20px rgba(0, 0, 0, 0.8)"
-    :visibility "hidden"}]
+    :visibility "visible"
+    :opacity "0.9"}]
   [:.bar:hover
    {:fill "Brown"}])
