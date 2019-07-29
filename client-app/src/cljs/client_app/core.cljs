@@ -24,4 +24,5 @@
   (re-frame/dispatch [::events/init-tree-count])
   (re-frame/dispatch [::events/initialize-sentences])
   (dev-setup)
-  (mount-root))
+  (mount-root)
+  (vs/init-sentence-tree 0))

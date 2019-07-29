@@ -8,7 +8,10 @@
    [cljsjs.d3 :as d3]
    [client-app.subs :as subs]
    [goog.string :as gstr]
-   [cljs.spec.alpha :as spec]))
+   [cljs.spec.alpha :as spec]
+   [cljs.core.async :refer [timeout]]
+   [day8.re-frame-10x.view.event :as event])
+  (:require-macros [cljs.core.async :refer [go-loop]]))
 
 (defn consume-tree-data
   ([]
@@ -137,7 +140,9 @@
                                 #(-> tooltip
                                      (.style "top" (gstr/format "%dpx" (- (-> js/d3 .-event .-pageY) 40)))
                                      (.style "left" (gstr/format "%dpx" (- (-> js/d3 .-event .-pageX) 0)))))
-                           (.on "mouseout" #(-> tooltip (.style "visibility" "hidden"))))
+                           (.on "mouseout" #(go-loop []
+                                              (<! (timeout 500))
+                                              (-> tooltip (.style "visibility" "hidden")))))
                      node-update (.merge   node-enter node)
                      _ (-> node-update
                            .transition
@@ -273,3 +278,11 @@
 ;;   (re-frame/dispatch-sync [::events/init-tree-count])
 ;;   (spec/valid? = (re-frame/subscribe [::subs/tree-count]) 0)
 ;; (spec/valid? > (re-frame/dispatch-sync [::events/inc-tree-count])(re-frame/subscribe [::subs/tree-count])))
+;;(re-frame/dispatch-sync [::events/add-remove-relation "case"])
+ ;;(re-frame/dispatch-sync [::events/add-remove-relation "nmod"])
+;; (re-frame/dispatch-sync [::events/sub-remove-relation "nmod"])
+ ;; (re-frame/dispatch-sync [::events/sub-remove-relation "case"])
+
+ 
+
+
