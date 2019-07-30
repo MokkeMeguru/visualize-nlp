@@ -8,10 +8,6 @@ interface Props {
 
 export default class Circle extends React.Component<Props, {}> {
     ref?: SVGSVGElement;
-    constructor(props: Props) {
-        super(props);
-    }
-
     componentDidMount(){
         select(this.ref!)
             .append('circle')
@@ -27,8 +23,8 @@ export default class Circle extends React.Component<Props, {}> {
             <svg className="container"
                  ref={(ref: SVGSVGElement) => this.ref =ref }
                  width={this.props.width}
-            height={this.props.height}
-            style={svgstyle}
+                 height={this.props.height}
+                 style={svgstyle}
             >
             </svg>
         );

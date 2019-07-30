@@ -1,8 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {CallLocation} from './CallLocation';
+import { CallLocation } from './CallLocation';
 import Circle from './D3Tutorial/Circle';
+import BarChart from './D3Tutorial/BarChart'
 
 const App: React.FC = () => {
     return (
@@ -22,8 +23,9 @@ const App: React.FC = () => {
                 </a>
             </header>
             <CallLocation></CallLocation>
-            <Circle  width={200}
-                     height={100}></Circle>
+            <Circle width={200}
+                height={100}></Circle>
+            <BarChart narray={[1, 2, 4, 6, 2, 1, 10, 5]} id={1} width={500} height={120}> </BarChart>
         </div>
     );
 }

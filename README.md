@@ -1,10 +1,15 @@
 ## HOW DID IT'S PROJECT BUILD?
 ```shell
 npm --version # 6.10.2
+sudo npm install -g import-js eslint
 npx create-react-app todo-app --typescript
 npm install redux react-redux d3 @types/d3
 npm install @types/react-redux redux-thunk
+npm install espower-typescript power-assert mocha @types/mocha
+npm install jquery popper.js 
+npm install -f fsevents
 npm install typescript-fsa typescript-fsa-reducers typescript-fsa-redux-thunk
+
 ```
 
 # ROOT
